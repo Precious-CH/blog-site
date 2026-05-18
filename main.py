@@ -32,7 +32,9 @@ def load_user(user_id):
 
 
 # CREATE DATABASE
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///posts.db")
+uri = os.environ.get("DB_URI", "sqlite:///posts.db")
+uri = uri.replace("postgres://", "postgresql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
